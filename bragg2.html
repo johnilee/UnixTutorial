@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Astrophysics Teaching Lab</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="" content="" />
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+</head> 
+ 
+<body>
+<h1>Astrophysics Teaching Lab <br/> <span STYLE="font-size:70%">Bragg 4.04</span></h1>
+
+<h2>Loading Software</h2>
+
+<h3>The modules package</h3>
+
+<p> Various software packages are available to easily load and install via the <samp>modules</samp> package.</p>
+
+<p> See what is available by typing </p>
+<p class="command"> $ module avail</p>
+
+<p> Modules specific to astrophysics are located in the <samp>/uollinapps/v2/current/maps/packages/el9/</samp> path, while other more general software is elsewhere.</p>
+
+<p>Make certain software available with </p>
+
+<p class="command"> $ module load &lt;package&gt; </p>
+
+<p> The package understands shortcuts, so if there is only one version of a package you do not need to include version numbers.  If you need a specific version, include them, e.g. </p>
+
+<p class="command"> $ module load gcc/13.2.0 </p>
+
+<p> You can also find out more about a specific package with </p>
+
+<p class="command"> $ module whatis &lt;package&gt; </p>
+
+<p> You can remove specfic loaded packages with </p>
+
+<p class="command"> $ module unload &lt;package&gt; </p>
+
+<p> or use the </p>
+
+<p class="command">  module purge </p>
+
+<p> command to completely remove all loaded packages.
+</p>
+<p class="hint"> <strong>Beware</strong>: do <strong>not</strong> include any module load statements in the <samp>.bashrc</samp> or <samp>.profile</samp> files.</p>
+
+
+<h2> Setting Up Python </h2>
+
+<h3>A Pre-Loaded Python Environment</h3>
+
+<p> The basic system Python is always available without loading any modules, e.g.</p>
+
+<p class="command">$ which python -> /usr/bin/python</p>
+
+<p> However this may not be suitable for you needs and will require package installations. </p>
+
+<p> You can activate a bespoke modular environment with </p>
+
+<p class="command"> $ module load maps-condaenv</p>
+
+<p> which gives Python 3.9 preloaded with <samp>ipython</samp>, <samp>jupyter</samp>, <samp>scipy</samp>, <samp>numpy</samp>, <samp>matplotlib</samp>, <samp>pandas</samp>, <samp>astropy</samp> and <samp>ffmpeg</samp>.</p>
+
+<h3>Customising a Python Environment</h3>
+
+<p> If you want to install other Python packages, set up your own 
+modular environment using the following steps. </p>
+
+<p> Load up an empty anaconda module with </p>
+
+<p class="command"> $ module load miniforge</p>
+
+<p>Then you will need to activate the base environment with</p>
+
+<p class="command"> $ eval "$(/uollinapps/v2/current/uol/packages/el9/install/miniforge3/bin/conda shell.bash hook)"</p>
+
+<p> Create your bespoke environment (here <samp>myenv</samp>) with </p>
+
+<p class="command"> $ conda create -n myenv python=3.9</p>
+
+<p class="command"> $ conda activate myenv</p>
+
+<p class="command"> $ conda install &lt;packages&gt;</p>
+
+<p>You can deactivate this environment with</p>
+
+<p class="command"> $ conda deactivate</p>
+
+<h2> Other Software </h2>
+
+<h3>GNU Compilers</h3>
+
+<p>Each machine has GNU 11.4.1 compilers natively installed (gcc, gfortran).</p>
+
+<p>If you require a fixed reference version to be available, you can use</p>
+
+<p class="command"> $ module load gcc/11.4.0 </p>
+
+<p> to make the GNU 11.4.0 suite of compilers available, for example.</p>
+
+<h3>CASA</h3>
+
+<p>CASA version 6.6.5-31 can be loaded with</p>
+
+<p class="command"> $ module load casa </p>
+
+<p> CASA will attempt to download required data to your home directory.  It will throw an 
+error if <samp>~/.casa/data</samp> does not exist, so you will need to run</p>
+
+<p class="command"> $ mkdir ~/.casa/data </p>
+ 
+<p> to create it in your home directory if you are using CASA for the first time.</p>
+
+<p class="hint"> <strong>Note</strong>: CASA's GUI does not yet work with the new default 
+graphics rendering on RHEL9 (Wayland).  If you wish to use CASA GUI interfaces (e.g. imview, 
+casaviewer, plotms, the logger), you will need to select to use the X11 system when first 
+logging on to the machine.  
+
+This option is available on the login screen immediately after entering your username, but 
+BEFORE entering your password.  Find the "gear" icon at the bottom right of the password 
+screen, and change the selection to "Standard (X11 Display Server)".
+
+This choice will be saved into the preferences for each user for your next login.</p>
+
+<p>If needed, you can access a previous version of CASA (v5.8) using</p>
+
+<p class="command"> $ module use /uollinapps/v2/dev/maps/other/el9 </p>
+
+<p class="command"> $ module load casa/5.8.0-109 </p>
+
+<p>which may help if you encounter any bugs with CASA v6.</p>
+
+<h3> CARTA </h3>
+
+<p> Load CARTA v4.1.0 with </p>
+
+<p class="command"> $ module load carta </p>
+
+<p> If connecting to another machine remotely via <samp>ssh</samp>, be sure to include <samp>-X</samp> to 
+launch the browser windows correctly.  You may need to manually visit the IP address served when CARTA opens. </p>
+
+<h3>IDL</h3>
+
+<p> Make IDL Version 8.0 available with </p>
+
+<p class="command"> $ module load idl </p>
+
+<p> which will operate under the licence STAR404447-1.</p>
+
+<h3> DS9 </h3>
+
+<p> Load SAOImageDS9 v8.6 with </p>
+
+<p class="command"> module load ds9 </p>
+
+<h3>Starlink</h3>
+
+<p> The Starlink 2023A suite of software can be loaded with
+
+<p class="command"> module load starlink </p>
+
+<p>which includes software such as <samp>topcat</samp>, <samp>gaia</samp>, etc.
+
+<p class="hint"> <strong>Note</strong>: Due to the requirements for setting up Starlink properly, unloading this module does not 
+revert many of the aliases and paths assigned during setup.  You will be warned about this and it is 
+suggested you start a new terminal session to avoid any issues after unload. </p>
+
+<h3>LaTeX</h3>
+
+<p> Each machine has TeX Live 2020 natively installed giving access to (pdf)LaTeX, BibTeX etc. </p>
+
+<!--
+
+KNOWN GENERAL ISSUES
+
+Do not include 'module load' statements in your .bashrc or .profile files, this causes
+login errors.
+
+Home directories have the usual 10GB limit.  Excessive installations here (e.g. lots of
+packages in bespoke conda environments) may cause this to be breached.  Check your home 
+directory size regularly (e.g. with du -sh while in it) and consider hosting large virtual 
+environments elsewhere (e.g. /local/data/USERNAME/)
+
+
+Due to the requirements for setting up Starlink properly, unloading this module does not 
+revert many of the aliases and paths assigned during setup.  You will be warned and it is 
+suggested you start a new terminal session to avoid any unforeseen issues after unload.
+
+
+-->
+
+<p class="navbar"> 
+<a href="bragg1.html"><img src="media/left.gif" alt="Previous" width="37" height="39" border="0" /></a> 
+<a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="bragg2.html"></a> 
+</p>
+
+
+<p class="date">J.D.Ilee@leeds.ac.uk </p>
+</body>
+</html>

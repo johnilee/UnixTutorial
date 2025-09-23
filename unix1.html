@@ -27,7 +27,7 @@
   to be listed, but only those ones whose name does not begin with a dot (.) Files 
   beginning with a dot (.) are known as hidden files and usually contain important 
   program configuration information. They are hidden because you should not change 
-  them unless you are very familiar with UNIX!!! </p>
+  them unless you are very familiar with UNIX! </p>
 <p> To list all files in your home directory including those whose names begin 
   with a dot, type </p>
 <p class="command">$ ls -a</p>
@@ -98,11 +98,11 @@
 <h2>1.6 More about home directories and pathnames </h2>
 <h3>Understanding pathnames</h3>
 <p>First type <samp>cd</samp> to get back to your home-directory, then type</p>
-<p class="command"> % ls unixstuff</p>
+<p class="command"> $ ls unixstuff</p>
 <p>to list the conents of your unixstuff directory.</p>
 <p>&nbsp;</p>
 <p>Now type </p>
-<p class="command"> % ls backups</p>
+<p class="command"> $ ls backups</p>
 <p> You will get a message like this - </p>
 <p class="stdout"> backups: No such file or directory </p>
 <p> The reason is, <strong>backups</strong> is not in your current working directory. 
@@ -110,19 +110,19 @@
   (the directory you are currently in), you must either <samp>cd</samp> to the 
   correct directory, or specify its full pathname. To list the contents of your 
   backups directory, you must type </p>
-<p class="command"> % ls unixstuff/backups </p>
+<p class="command"> $ ls unixstuff/backups </p>
 <p>&nbsp;</p>
 <h3>~ (your home directory) </h3>
 <p>Home directories can also be referred to by the tilde <strong>~</strong> character. 
   It can be used to specify paths starting at your home directory. So typing </p>
-<p class="command"> % ls ~/unixstuff</p>
+<p class="command"> $ ls ~/unixstuff</p>
 <p> will list the contents of your unixstuff directory, no matter where you currently 
   are in the file system. </p>
 <p> What do you think </p>
-<p class="command"> % ls ~</p>
+<p class="command"> $ ls ~</p>
 <p> would list? </p>
 <p> What do you think </p>
-<p class="command"> % ls ~/.. </p>
+<p class="command"> $ ls ~/.. </p>
 <p> would list? </p>
 <h2>Summary </h2>
 <table border="1" align="center" cellpadding="5" cellspacing="0">
@@ -165,6 +165,6 @@
 </p>
 
 
-<p class="date">M.Stonebank@surrey.ac.uk, &copy; 9th October 2000; Adapted by J.D.Ilee@leeds.ac.uk, Sept 2025
+<p class="date">M.Stonebank@surrey.ac.uk, &copy; 9th October 2000; Adapted by J.D.Ilee@leeds.ac.uk </p>
 </body>
 </html>

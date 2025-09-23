@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<title>Astrophysics Teaching Lab</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="" content="" />
+<link href="unixtut1.css" rel="stylesheet" type="text/css" />
+</head> 
+ 
+<body>
+<h1>Astrophysics Teaching Lab <br/> <span STYLE="font-size:70%">Bragg 4.04</span></h1>
+
+<h2>System Overview</h2>
+
+<h3>Specifications</h3>
+<p>
+The machines are running RHEL 9 with i7 3.6GHz processors, 4TB SSDs and 128 GB DDR5 RAM.
+They are named uol-pc-055764 to uol-pc-055775 inclusive.
+</p>
+
+<p>
+Due to the way home directories are now handled, IT need to manually create these for each
+new user.  This will need to be actioned at the beginning of each academic year for
+students on modules likely to use the machines and also for any new PGRs, PDRAs and 
+academic staff likely to need access for demonstrating purposes.
+</p>
+
+<h3>Home Directories & Disk Space</h3>
+
+<p>Users have the standard 10GB allocated in their home directories (accessible between all 
+machines) and 4TB of local shared storage on each machine mounted at <samp>/local/data/</samp>.  
+
+<p>Users should create a folder here to work in with</p>
+
+<p class="command"> $ mkdir /local/data/USERNAME/</p>
+
+<p> and note that this will only be accessible from the local machine.  You can make use of <samp>ssh</samp> to access your 
+data on a specific machine if not directly logged in to the same one (see below). </p>
+
+<p> Regularly check the total size of files in your home directory with </p>
+
+<p class="command"> $ cd </p>
+<p class="command"> $ du -sh</p>
+
+<p> and take steps to (re)move files if this is approaching the 10GB quota limit.</p>
+
+<h3>Remote Access</h3>
+
+<p>
+For security reasons, remote access (e.g. access from off campus) has not been enabled on these machines.
+However, it is possible to connect to one machine from another using the <samp>ssh</samp> protocol.</p>
+
+<p> To initiate a remote connection from your current machine to another machine, type </p>
+
+<p class="command"> $ ssh -X uol-pc-XXXXXX </p>
+
+<p> where <samp>uol-pc-XXXXXX</samp> is the machine you would like to connect to. Make sure to include the option <samp>-X</samp> so that any graphical user interfaces are forwarded correctly.</p>
+
+<h3>Legacy</h3>
+
+<p>The previous <samp>/import/software/</samp> directories are now accessible at <samp>/readonly/software/</samp> 
+primarily to ensure access to pre-existing data (therefore any software hosted there may not work). </p>
+
+
+
+<!--
+The machines are not directly accessible from off campus, but ssh from other on campus 
+machines is possible.
+
+Users have the standard 10GB allocated in their home directories (accessible between all 
+machines) and 4TB of local shared storage on each machine mounted at /local/data/.  Users 
+should create a folder to work in (e.g. mkdir /local/data/USERNAME/) and note that this 
+will only be accessible from the local machine.  You can make use of ssh to access your 
+data on a specific machine if not directly logged in to the same one.
+
+The previous /import/software/ directories are now accessible at /readonly/software/, 
+primarily to ensure access to pre-existing data (e.g software hosted there may not work).
+
+------------------------------------------------------------------------------------------
+Notes on loading software
+------------------------------------------------------------------------------------------
+
+The machines have been set up to load most required software with the "module" package.  
+See what is available with
+
+> module avail
+
+Our astro specific software is located in 
+
+/uollinapps/v2/current/maps/packages/el9/
+
+while more general software are in other locations (n.b. anything with /v1/ may not work).
+
+Make certain software available with
+
+> module load xxx  
+
+The package understands shortcuts, so if there is only one version of a package you do not
+need to include version numbers.  If you need a specific version, include them, e.g. 
+
+> module load gcc/13.2.0
+
+You can also find out more about a specific package with 
+
+> module whatis xxx
+
+You can remove loaded packages with 
+
+> module unload xxx
+
+or remove all loaded packages with
+
+> module purge
+
+NOTE: DO NOT INCLUDE ANY MODULE LOAD STATEMENTS IN YOUR .BASHRC/.PROFILE FILES, THIS WILL
+CAUSE ERRORS THAT PREVENT FUTURE LOGINS.
+
+------------------------------------------------------------------------------------------
+Software specific instructions & quirks
+------------------------------------------------------------------------------------------
+
+PYTHON
+
+The basic system Python is always available without loading any modules, e.g. 
+
+> which python -> /usr/bin/python
+
+However this may not be suitable for you needs and will require package installations.  
+
+You can activate a bespoke modular environment with
+
+> module load maps-condaenv
+
+which gives Python 3.9 preloaded with:
+
+- ipython
+- jupyter 
+- scipy
+- numpy  
+- matplotlib 
+- pandas
+- astropy
+- ffmpeg
+ 
+This should cover the majority of astronomical Python operations. 
+
+If you want to install more bespoke Python environment, it is advisable to set up your own 
+modular environment using the following steps.  Load up an empty anaconda module with
+
+> module load miniforge
+
+Then you will need to activate the base environment with 
+
+> eval "$(/uollinapps/v2/current/uol/packages/el9/install/miniforge3/bin/conda shell.bash hook)"
+
+Create your bespoke environment (here myenv) with
+
+> conda create -n myenv python=3.9
+
+> conda activate myenv
+
+> conda install mypackagenames
+
+You can deactivate this environment with
+
+> conda deactivate
+
+------------------------------------------------------------------------------------------
+
+GNU Compilers
+
+Each machine has GNU 11.4.1 compilers natively installed (gcc, gfortran).
+
+If you require a fixed reference version across the machines (in case of future updates) 
+you can use
+
+> module load gcc/11.4.0
+
+to make the GNU 11.4.0 suite of compilers available.
+
+------------------------------------------------------------------------------------------
+
+CASA
+
+> module load casa
+
+This will make monolithic CASA 6.6.5-31 available, which can be opened with "casa".
+
+**NOTE 1:
+
+CASA will attempt to download required data to your home directory.  
+It will throw an error if ~/.casa/data does not exist, so you will need to run
+
+> mkdir ~/.casa/data
+
+to create it if you are using CASA for the first time on these machines.
+
+**NOTE 2:
+
+CASA's GUI does not yet work with the new default graphics rendering on RHEL9 (Wayland).  
+If you wish to use CASA GUI interfaces (e.g. imview, casaviewer, plotms, the logger), you 
+will need to select to use the X11 system when first logging on to the machine.  
+
+This option is available on the login screen immediately after entering your username, but 
+BEFORE entering your password.  Find the "gear" icon at the bottom right of the password 
+screen, and change the selection to "Standard (X11 Display Server)".
+
+This choice will be saved into the preferences for each user for your next login.
+
+------------------------------------------------------------------------------------------
+
+CARTA
+
+> module load carta
+
+This will make CARTA v4.1.0 available, run with "carta".
+
+**NOTE: 
+
+If connecting via ssh make sure to forward windows with "ssh -X" to launch the browser 
+window correctly.  You may need to manually visit the IP address served when CARTA opens.
+
+
+------------------------------------------------------------------------------------------
+
+IDL
+
+> module load idl
+
+This will make IDL Version 8.0 available under the licence STAR404447-1, run with "idl".
+
+------------------------------------------------------------------------------------------
+
+DS9
+
+> module load ds9
+
+This will make SAOImageDS9 v8.6 available, which can be opened with "ds9".
+
+------------------------------------------------------------------------------------------
+
+STARLINK
+
+> module load starlink
+
+This will load the Starlink 2023A suite of software (including "topcat", "gaia" etc).
+
+------------------------------------------------------------------------------------------
+
+LaTeX
+
+Each machine has TeX Live 2020 natively installed giving access to (pdf)latex, bibtex etc.
+
+------------------------------------------------------------------------------------------
+
+FFMPEG
+
+The "ffmpeg" executable will be available once the 'maps-condaenv' Python environment is
+loaded as described above.
+
+------------------------------------------------------------------------------------------
+
+KNOWN GENERAL ISSUES
+
+Do not include 'module load' statements in your .bashrc or .profile files, this causes
+login errors.
+
+Home directories have the usual 10GB limit.  Excessive installations here (e.g. lots of
+packages in bespoke conda environments) may cause this to be breached.  Check your home 
+directory size regularly (e.g. with du -sh while in it) and consider hosting large virtual 
+environments elsewhere (e.g. /local/data/USERNAME/)
+
+If using a remote desktop protocol (Windows Virtual Desktop, VNC) at any point during your 
+connection process to these machines, there is a possibility of errors relating to the 
+visibility of GUI windows (e.g. blank windows, crashes).  This is being investigated but 
+as a workaround remove the RDP from your connection workflow (or use them in person).
+
+Due to the requirements for setting up Starlink properly, unloading this module does not 
+revert many of the aliases and paths assigned during setup.  You will be warned and it is 
+suggested you start a new terminal session to avoid any unforeseen issues after unload.
+
+
+-->
+
+<p class="navbar"> 
+  <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="bragg2.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
+</p>
+
+
+<p class="date">J.D.Ilee@leeds.ac.uk </p>
+</body>
+</html>

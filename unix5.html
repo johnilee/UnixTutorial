@@ -13,7 +13,7 @@
 <h2>5.1 File system security (access rights) </h2>
 <p>In your unixstuff directory, type </p>
 
-<p class="command"> % ls -l (l for long listing!)</p>
+<p class="command"> $ ls -l (l for long listing!)</p>
 <p>You will see that you now get lots of details about the contents of your directory, 
   similar to the example below. </p>
 <p> <img src="file1.gif" alt="File and directory access rights" /> </p>
@@ -128,12 +128,12 @@
 <p> For example, to remove read write and execute permissions on the file <strong>biglist</strong> 
   for the group and others, type </p>
 
-<p class="command"> % chmod go-rwx biglist </p>
+<p class="command"> $ chmod go-rwx biglist </p>
 <p>This will leave the other permissions unaffected. </p>
 
 <p>To give read and write permissions on the file <strong>biglist</strong> to 
   all, </p>
-<p class="command"> % chmod a+rw biglist </p>
+<p class="command"> $ chmod a+rw biglist </p>
 <h3>Exercise 5a</h3>
 <p>Try changing access permissions on the file <strong>science.txt</strong> and 
   on the directory <strong>backups</strong></p>
@@ -144,7 +144,7 @@
   To see information about your processes, with their associated PID and status, 
   type </p>
 
-<p class="command"> % ps </p>
+<p class="command"> $ ps </p>
 <p>A process may be in the foreground, in the background, or be suspended. In 
   general the shell does not return the UNIX prompt until the current process 
   has finished executing. </p>
@@ -156,11 +156,11 @@
 <p>To background a process, type an <strong>&amp;</strong> at the end of the command 
   line. For example, the command <samp>sleep</samp> waits a given number of seconds 
   before continuing. Type </p>
-<p class="command"> % sleep 10 </p>
-<p>This will wait 10 seconds before returning the command prompt %. Until the 
+<p class="command"> $ sleep 10 </p>
+<p>This will wait 10 seconds before returning the command prompt $. Until the 
   command prompt is returned, you can do nothing except wait. </p>
 <p> To run <samp>sleep</samp> in the background, type </p>
-<p class="command"> % sleep 10 &amp;</p>
+<p class="command"> $ sleep 10 &amp;</p>
 <p class="stdout">[1] 6259 </p>
 <p>The <strong>&amp;</strong> runs the job in the background and returns the prompt 
   straight away, allowing you do run other programs while waiting for that one 
@@ -172,27 +172,27 @@
   useful for jobs which will take a long time to complete. </p>
 <h3>Backgrounding a current foreground process</h3>
 <p>At the prompt, type </p>
-<p class="command"> % sleep 100 </p>
+<p class="command"> $ sleep 100 </p>
 <p>You can suspend the process running in the foreground by holding down the <code>[control]</code> 
   key and typing <code>[z]</code> (written as <strong>^Z</strong>) Then to put 
   it in the background, type </p>
-<p class="command"> % bg </p>
+<p class="command"> $ bg </p>
 <p class="hint">Note: do not background programs that require user interaction 
   e.g. pine </p>
 
 <h2>5.4 Listing suspended and background processes </h2>
 <p>When a process is running, backgrounded or suspended, it will be entered onto 
   a list along with a job number. To examine this list, type </p>
-<p class="command"> % jobs </p>
+<p class="command"> $ jobs </p>
 <p>An example of a job list could be </p>
 <p class="stdout"> [1] Suspended sleep 100<br />
   [2] Running netscape<br />
   [3] Running nedit
 </p>
 <p>To restart (foreground) a suspended processes, type </p>
-<p class="command"> % fg %jobnumber </p>
+<p class="command"> $ fg $jobnumber </p>
 <p>For example, to restart <samp>sleep 100</samp>, type </p>
-<p class="command"> % fg %1 </p>
+<p class="command"> $ fg $1 </p>
 <p>Typing <samp>fg</samp> with no job number foregrounds the last suspended process. 
 </p>
   <p> </p>
@@ -202,33 +202,33 @@
   program is in an infinite loop) </p>
 <p> To kill a job running in the foreground, type <samp>^C</samp> (control c). 
   For example, run </p>
-<p class="command">% sleep 100<br />
+<p class="command">$ sleep 100<br />
   ^C </p>
 <p> To kill a suspended or background process, type </p>
-<p class="command"> % kill %jobnumber </p>
+<p class="command"> $ kill $jobnumber </p>
 <p>For example, run </p>
-<p class="command">% sleep 100 &amp;<br />
+<p class="command">$ sleep 100 &amp;<br />
   % jobs</p>
 <p> If it is job number 4, type </p>
-<p class="command"> % kill %4 </p>
+<p class="command"> $ kill $4 </p>
 <p>To check whether this has worked, examine the job list again to see if the 
   process has been removed. </p>
 <h3>ps (process status)</h3>
 <p> Alternatively, processes can be killed by finding their process numbers (PIDs) 
   and using <samp>kill <var>PID_number</var></samp></p>
-<p class="command"> % sleep 100 &amp;<br />
+<p class="command"> $ sleep 100 &amp;<br />
   % ps</p>
 <p class="stdout">PID TT S TIME COMMAND<br />
   20077 pts/5 S 0:05 sleep 100<br />
   21563 pts/5 T 0:00 netscape<br />
   21873 pts/5 S 0:25 nedit </p>
 <p>To kill off the process <samp>sleep 100</samp>, type </p>
-<p class="command"> % kill 20077 </p>
+<p class="command"> $ kill 20077 </p>
 <p>and then type <samp>ps</samp> again to see if it has been removed from the 
   list. </p>
 <p> If a process refuses to be killed, uses the <strong>-9</strong> option, i.e. 
   type </p>
-<p class="command"> % kill -9 20077 </p>
+<p class="command"> $ kill -9 20077 </p>
 <p class="hint">Note: It is not possible to kill off other users' processes !!!</p>
 <h2>Summary </h2>
 <table border="1" align="center" cellpadding="3" cellspacing="0">
@@ -261,11 +261,11 @@
     <td>list current jobs</td>
   </tr>
   <tr> 
-    <td><code>fg %1</code></td>
+    <td><code>fg $1</code></td>
     <td>foreground job number 1</td>
   </tr>
   <tr> 
-    <td><code>kill %1</code></td>
+    <td><code>kill $1</code></td>
     <td> kill job number 1</td>
   </tr>
   <tr> 
@@ -283,7 +283,7 @@
   <a href="index.html"><img src="media/home.gif" alt="Home" width="81" height="39" border="0" /></a><a href="unix6.html"><img src="media/right.gif" alt="Next" width="37" height="39" border="0" /></a> 
 </p>
 
-<p class="date"> M.Stonebank@surrey.ac.uk, 9th October 2000 </p>
+<p class="date">M.Stonebank@surrey.ac.uk, &copy; 9th October 2000; Adapted by J.D.Ilee@leeds.ac.uk </p>
 
 </body>
 </html>
